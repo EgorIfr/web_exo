@@ -66,43 +66,26 @@ body {
     gap: 12px;
 }
 
-.form__auth_register {
-    padding: 8px 16px;
-    border: 1px solid #1f1f1f;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
+.form__auth_register,
 .form__auth_login {
     padding: 8px 16px;
     border: 1px solid #1f1f1f;
     border-radius: 4px;
     transition: all 0.3s ease;
+    align-items: center;
 }
 
 .form__auth_register:hover {
     background-color: #f0f0f0;
 }
 
-.form__auth_login:hover {
-    background-color: #f0f0f0;
-}
-
 .form__auth_login {
-    padding: 8px 16px;
-    border: 1px solid #1f1f1f;
-    border-radius: 4px;
     background-color: #1f1f1f;
     color: #f8f8f8;
-    transition: all 0.3s ease;
 }
 
 .form__auth_login:hover {
     background-color: #333;
-}
-
-.form__auth_login-link {
-    color: #f8f8f8;
 }
 
 .main {
@@ -130,7 +113,8 @@ body {
     font-weight: 600;
 }
 
-.form__register {
+.form__register,
+.form__login {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -190,7 +174,7 @@ body {
 }
 
 /* Стили для сообщений */
-p[style*="color: red"] {
+.error-message {
     background-color: #fee;
     border: 1px solid #fcc;
     color: #c33;
@@ -200,7 +184,7 @@ p[style*="color: red"] {
     text-align: center;
 }
 
-p[style*="color: green"] {
+.success-message {
     background-color: #efe;
     border: 1px solid #cfc;
     color: #363;

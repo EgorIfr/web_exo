@@ -2,33 +2,30 @@
 include_once 'db.php';
 session_start();
 
+// Исправить на:
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-    $fullname = $_POST['fullname'];
     $login = $_POST['login'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $stmt = $conn -> prepare("SELECT * FROM users WHERE login = ? AND password = ?");
-    $stmt -> bind_param("ss", $login, $password);
-    $stmt -> execute();
-    $result = $stmt -> get_result();
+    // Убрать проверку пароля из SQL, использовать только password_verify
+    $stmt = $conn->prepare("SELECT * FROM users WHERE login = ?");
+    $stmt->bind_param("s", $login);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['user_login'] = $user['login'];
+            header('Location: index.php'); // Добавить редирект
             exit();
+        } else {
+            $error = 'Неверный пароль';
         }
-        else {
-            $error = 'Неверный пароль' . $conn -> error;
-        }
+    } else {
+        $error = 'Пользователь не найден';
     }
-    else {
-        $error = 'Пользователь с не найден';
-    }
-
 }
 
 ?>
@@ -58,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         </ul>
     </nav>
     <div class="form__auth">
-        <span class="form__auth_login"><a href="login.php">Вход</a></span>
+        <span class="form__auth_login"><a href="login.php" class="form__auth_login">Вход</a></span>
         <span class="form__auth_register"
-        ><a href="register.php" class="form__auth_login-register"
+        ><a href="register.php"
             >Регистрация</a
             ></span
         >
