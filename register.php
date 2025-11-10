@@ -1,36 +1,36 @@
 <?php 
 include_once 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])){
-  $fullname = $_POST['fullname'];
-  $login = $_POST['login'];
-  $phone = $_POST['phone'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+$error = '';
+$message = '';
 
-  $check_query = 'SELECT id FROM users WHERE login = ? OR email = ?';
-  $stmt = $conn -> prepare($check_query);
-  $stmt -> bind_param("ss", $login, $email);
-  $stmt -> execute();
-  $stmt -> store_result();
 
-  if($stmt -> num_rows > 0){
-    $error = "Пользователь с таким именем или email уже существует.";
-  } else {
-    $insert_query = "INSERT INTO users (fullname, login, phone, email, password) VALUES (?, ?, ?, ?, ?)";
-    $stmt_insert = $conn -> prepare($insert_query);
-    $stmt_insert -> bind_param('sssss', $fullname, $login, $phone, $email, $password);
-     if($stmt_insert -> execute()){
-      $message = 'Регистрация успешна!';
-     } else {
-      $error = 'Ошибка регистрации' . $conn -> error;
-     }
-     $stmt_insert -> close();
-  }
-  $stmt -> close();
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
+    $fullname = $_POST['fullname'];
+    $login = $_POST['login'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+
+    $stmt = $conn -> prepare('SELECT id FROM users WHERE login = ? OR email = ?');
+    $stmt -> bind_param('ss', $login, $email);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+
+    if($result->num_rows > 0){
+        $error = 'Логин уже существует!';
+    }
+    else{
+        $stmt = $conn-> prepare("INSERT INTO users (fullname, login, phone, email, password) VALUES (?,?,?,?,?)");
+        $stmt -> bind_param('sssss', $fullname, $login, $phone, $email, $password);
+        if($stmt -> execute()){
+            $message = 'Успешная регистрация!';
+        } else {
+            $error = 'Ошибка при регистрации' . $conn -> error;
+        }
+    }
 }
-$conn -> close();
-
 ?>
 
 <!DOCTYPE html>

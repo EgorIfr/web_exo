@@ -73,7 +73,18 @@ body {
     transition: all 0.3s ease;
 }
 
+.form__auth_login {
+    padding: 8px 16px;
+    border: 1px solid #1f1f1f;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
 .form__auth_register:hover {
+    background-color: #f0f0f0;
+}
+
+.form__auth_login:hover {
     background-color: #f0f0f0;
 }
 
