@@ -49,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
                 <a href="index.php" class="link_navigation">Главная</a>
             </li>
             <li class="item_navigation">
-                <a href="index.php" class="link_navigation">Создать заявку</a>
+                <a href="request.php" class="link_navigation">Создать заявку</a>
             </li>
             <li class="item_navigation">
-                <a href="index.php" class="link_navigation">Список заявок</a>
+                <a href="list.php" class="link_navigation">Список заявок</a>
             </li>
         </ul>
     </nav>
