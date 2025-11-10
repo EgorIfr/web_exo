@@ -27,6 +27,14 @@ body {
     flex-direction: column;
 }
 
+.index {
+    max-width: 1300px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .header {
     margin-top: 12px;
     font-size: 21px;

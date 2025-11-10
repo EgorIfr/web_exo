@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
 }
@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="style.css">
     <title>Главная</title>
 </head>
-<body>
+<body class="index">
 <header class="header">
     <img src="./assets/logo-name.svg" alt="logo" class="logo">
     <nav class="navigation">
@@ -31,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
         </ul>
     </nav>
     <div class="form__auth">
-        <span>Добро пожаловать, <?php echo $_SESSION['user_login']; ?>!</span>
+        <span>Добро пожаловать, <?php echo $_SESSION['login']; ?>!</span>
         <a href="logout.php">Выйти</a>
     </div>
 </header>
