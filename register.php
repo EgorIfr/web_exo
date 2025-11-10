@@ -5,7 +5,7 @@ $error = '';
 $message = '';
 
 // Добавляем проверку на конкретную отправку формы регистрации
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fullname = trim($_POST['fullname']);
     $phone = trim($_POST['phone']);
     $login = trim($_POST['login']);
