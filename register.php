@@ -1,0 +1,117 @@
+<?php 
+include_once 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])){
+  $fullname = $_POST['fullname'];
+  $login = $_POST['login'];
+  $phone = $_POST['phone'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  $check_query = 'SELECT id FROM users WHERE login = ? OR email = ?';
+  $stmt = $conn -> prepare($check_query);
+  $stmt -> bind_param("ss", $login, $email);
+  $stmt -> execute();
+  $stmt -> store_result();
+
+  if($stmt -> num_rows > 0){
+    $error = "Пользователь с таким именем или email уже существует.";
+  } else {
+    $insert_query = "INSERT INTO users (fullname, login, phone, email, password) VALUES (?, ?, ?, ?, ?)";
+    $stmt_insert = $conn -> prepare($insert_query);
+    $stmt_insert -> bind_param('sssss', $fullname, $login, $phone, $email, $password);
+     if($stmt_insert -> execute()){
+      $message = 'Регистрация успешна!';
+     } else {
+      $error = 'Ошибка регистрации' . $conn -> error;
+     }
+     $stmt_insert -> close();
+  }
+  $stmt -> close();
+}
+$conn -> close();
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Регистрация</title>
+  </head>
+  <body class="register">
+    <header class="header">
+      <img src="" alt="logo" class="logo" />
+      <nav class="navigation">
+        <ul class="list_navigation">
+          <li class="item_navigation">
+            <a href="index.php" class="link_navigation">Главная</a>
+          </li>
+          <li class="item_navigation">
+            <a href="index.php" class="link_navigation">Создать заявку</a>
+          </li>
+          <li class="item_navigation">
+            <a href="index.php" class="link_navigation">Список заявок</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="form__auth">
+        <span class="form__auth_register"><a href="login.php">Вход</a></span>
+        <span class="form__auth_login"
+          ><a href="register.php" class="form__auth_login-link"
+            >Регистрация</a
+          ></span
+        >
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="card card-xl">
+        <h2>Регистрация</h2>
+          <!-- Добавлены блоки для вывода сообщений -->
+           <?php if (!empty($error)): ?>
+            <p style="color: red;"><?php echo $error; ?></p>
+        <?php endif; ?>
+        <?php if (!empty($message)): ?>
+            <p style="color: green;"><?php echo $message; ?></p>
+        <?php endif; ?>
+
+        <form action="" method="post" class="form__register">
+          <div class="form__block">
+          <label for="">
+          <span class="form-text">ФИО</span>
+            <input name="fullname" type="text" placeholder="Введите ФИО" required class="form__input">
+          </label>
+          </div>
+          <div class="form__block">
+          <label for="">
+            <span class="form-text">Логин</span>
+            <input name="login" type="text" placeholder="Введите логин" required class="form__input">
+          </label>
+          </div>
+          <div class="form__block">
+          <label for="">
+          <span class="form-text">Почта</span>
+            <input name="email" type="email" placeholder="Введите почту" required class="form__input">
+          </label>
+          </div>
+          <div class="form__block">
+          <label for="">
+          <span class="form-text">Номер телефона</span>
+            <input name="phone" type="phone" placeholder="Введите телефон" required class="form__input">
+          </label>
+          </div>
+          <div class="form__block">
+          <label for="">
+          <span class="form-text">Пароль</span>
+            <input name="password" type="password" placeholder="Введите пароль" required class="form__input">
+          </label>
+          </div>
+          <button type="submit" class="btn-register" name="register">Зарегистрироваться</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
