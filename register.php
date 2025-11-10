@@ -43,7 +43,7 @@ $conn -> close();
   </head>
   <body class="register">
     <header class="header">
-      <img src="" alt="logo" class="logo" />
+      <img src="./assets/logo-name.svg" alt="logo" class="logo" />
       <nav class="navigation">
         <ul class="list_navigation">
           <li class="item_navigation">
