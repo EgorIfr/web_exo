@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-<body>
+<body class="list">
 <header class="header">
     <img src="./assets/logo-name.svg" alt="logo" class="logo">
     <nav class="navigation">
@@ -35,10 +35,10 @@
                 <a href="index.php" class="link_navigation">Главная</a>
             </li>
             <li class="item_navigation">
-                <a href="index.php" class="link_navigation">Создать заявку</a>
+                <a href="request.php" class="link_navigation">Создать заявку</a>
             </li>
             <li class="item_navigation">
-                <a href="index.php" class="link_navigation">Список заявок</a>
+                <a href="list.php" class="link_navigation">Список заявок</a>
             </li>
         </ul>
     </nav>
