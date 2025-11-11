@@ -4,7 +4,7 @@ session_start();
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $login = $_POST['login'];
     $password = $_POST['password'];
 
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
                     <input name="password" type="password" placeholder="Введите пароль" required class="form__input">
                 </label>
             </div>
-            <button type="submit" class="btn-register" name="login-btn">Войти</button>
+            <button type="submit" class="btn-register">Войти</button>
         </form>
         <!-- Добавлены блоки для вывода сообщений -->
         <?php if (!empty($error)): ?>

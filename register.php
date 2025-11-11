@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input name="password" type="password" placeholder="Введите пароль" required class="form__input">
                 </label>
             </div>
-            <button type="submit" class="btn-register" name="register">Зарегистрироваться</button>
+            <button type="submit" class="btn-register">Зарегистрироваться</button>
         </form>
         <!-- Добавлены блоки для вывода сообщений -->
         <?php if (!empty($error)): ?>
